@@ -1,16 +1,44 @@
+from typing import Optional
 from fastapi import FastAPI
 import uvicorn
+from pydantic import BaseModel
 from typing import Optional
 
 app = FastAPI()
 
 
-@app.get("/countries/")
-# async def country(country_name: str = "indonesia", country_no: int = 62):
-async def country(country_name: Optional[str] = None, country_no: Optional[int] = None):
+
+class Item(BaseModel):
+    name: str
+    description: Optional[str] = None
+    price: int
+    tax: Optional[float] = None
+
+"""
+{
+  "name": "shoes",
+  "description": null,
+  "price": 122,
+  "tax": null
+}
+
+{
+  "name": "shoes",
+  "description": "some description",
+  "price": 122,
+  "tax": 1.2
+}
+
+
+
+"""
+
+
+@app.post("/items/")
+async def create_item(item: Item):
+    # return item
     return {
-        "country_name": country_name,
-        "country_no": country_no
+        "message": f"{item.name} has total price with tax: {int(item.price*item.tax)}"
     }
 
 
