@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from fastapi import FastAPI
 import uvicorn
 from pydantic import BaseModel
@@ -8,37 +8,61 @@ app = FastAPI()
 
 
 
+class ShopInfo(BaseModel):
+  name: str
+  location: str
+
+
 class Item(BaseModel):
     name: str
     description: Optional[str] = None
     price: int
     tax: Optional[float] = None
 
+
+class Data(BaseModel):
+  shop_info: Optional[ShopInfo] = None  #shop_info: ShopInfo
+  items: List[Item]
+
+
+
+
+
+
 """
-{
-  "name": "shoes",
-  "description": null,
-  "price": 122,
-  "tax": null
-}
+Ex json output:
+
 
 {
-  "name": "shoes",
-  "description": "some description",
-  "price": 122,
-  "tax": 1.2
+  "shopInfo": {
+    "name": "ABC store",
+    "location": "Surabaya"
+  },
+  "items": [
+      {
+        "name": "White shoes",
+        "description": null,
+        "price": 122,
+        "tax": 1.2
+      },
+      {
+        "name": "Black Shirt",
+        "description": "Shirt with black color",
+        "price": 15,
+        "tax": 1.2
+      }
+  ]
+
 }
-
-
 
 """
 
 
 @app.post("/items/")
-async def create_item(item: Item):
+async def create_item(data: Data):
     # return item
     return {
-        "message": f"{item.name} has total price with tax: {int(item.price*item.tax)}"
+        "data": data
     }
 
 
