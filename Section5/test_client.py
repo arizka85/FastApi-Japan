@@ -9,7 +9,7 @@ def main():
     URL = "https://8hxo7h.deta.dev/"
 
     data = {
-        "x": 10.5,
+        "x": 10,
         "y": 5
     }
 
