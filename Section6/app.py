@@ -2,31 +2,17 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-st.button("Click me")
-
-if st.button("Test !"):
-    st.write("Hello Test")
 
 
-
-st.checkbox("Checkbox 1")
+number = st.sidebar.slider("Pick a Num", 0, 100)
+# st.write(f"number: {number}")
+st.sidebar.write(f"number: {number}")
 
 
 
-
-options = st.multiselect(
-     'What are your favorite colors',
-     ['Green', 'Yellow', 'Red', 'Blue'],
-     ['Yellow', 'Red'])
-st.write('You selected:', options)
-
-
-
-
-
-
-
-
+left_col, right_col = st.columns(2)
+left_col.slider("Pick a Num in Left", 0, 100)
+right_col.write("Right Column!!")
 
 
 
