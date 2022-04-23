@@ -1,26 +1,24 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 st.write("Sample App")
 
 
-df = pd.DataFrame({
-    "satu": [1, 2, 3, 4],
-    "dua": [-1, -2, -3, -4]
-})
-
-st.dataframe(df)
+st.write(np.random.rand(20, 3))
 
 
-st.json(
-{
-    'data': {
-        'name': 'abc',
-        'age': 123
-    }
-}
+
+df = pd.DataFrame(
+    np.random.rand(20, 3),
+    columns=['a', 'b', 'c']
 
 )
+# st.line_chart(df)
+# st.area_chart(df)
+st.bar_chart(df)
+
+
 
 
 # streamlit run app.py
